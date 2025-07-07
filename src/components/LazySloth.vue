@@ -186,9 +186,10 @@ const typewriterEffect = (text) => {
   }, 40);
 };
 
-const API_BASE_URL =
-  process.env.VUE_APP_API_BASE_URL ||
-  "https://too-lazy-as-a-service.onrender.com";
+// At the top of your component/file
+const API_BASE_URL = import.meta.env.PROD
+  ? "https://too-lazy-as-a-service.onrender.com"
+  : ""; // Empty string for development (uses proxy)
 
 const getExcuse = async () => {
   if (loading.value) return;
