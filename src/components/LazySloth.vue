@@ -235,18 +235,19 @@ const getExcuse = async () => {
 
     if (newCategory === "Who Care?") {
       error.value = "The sloth refused to work. Try again later (or don't)";
-      excuse.value = newExcuse;
+      excuse.value = newExcuse; /
       excuseCount.value++;
+
       setTimeout(() => {
         typewriterEffect(newExcuse);
-      }, 500);
+      }, 100);
     } else {
       error.value = "";
       excuse.value = newExcuse;
       excuseCount.value++;
       setTimeout(() => {
         typewriterEffect(newExcuse);
-      }, 500);
+      }, 100);
     }
   } catch (err) {
     if (err.code === "ECONNABORTED") {
