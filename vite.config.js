@@ -1,3 +1,6 @@
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+
 export default defineConfig({
   plugins: [vue()],
   server: {
@@ -6,7 +9,7 @@ export default defineConfig({
         target: 'https://too-lazy-as-a-service.onrender.com',
         changeOrigin: true,
         secure: true,
-
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
   },
