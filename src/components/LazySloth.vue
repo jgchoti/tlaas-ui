@@ -230,9 +230,12 @@ const getExcuse = async () => {
 
     if (newCategory === "Who Care?") {
       error.value =
-        "The sloth refused to work. Try again later (or don't)" ||
-        "The sloth refused to respond. Typical.";
-      excuse.value = "";
+        "The sloth refused to work. Try again later (or don't)";
+      excuse.value = newExcuse; // Show the API's excuse even for "Who Care?"
+      excuseCount.value++;
+      setTimeout(() => {
+        typewriterEffect(newExcuse);
+      }, 500);
     } else {
       error.value = "";
       excuse.value = newExcuse;
@@ -257,7 +260,6 @@ const getExcuse = async () => {
   } finally {
     loading.value = false;
   }
-};
 const clearAll = () => {
   category.value = "";
   tag.value = "";
