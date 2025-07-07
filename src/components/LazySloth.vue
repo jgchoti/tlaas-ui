@@ -122,6 +122,9 @@ const displayedExcuse = ref("");
 const loading = ref(false);
 const error = ref("");
 const excuseCount = ref(0);
+const API_BASE_URL = import.meta.env.PROD
+  ? "https://too-lazy-as-a-service.onrender.com"
+  : "";
 
 // Enhanced categories with better organization
 const categories = ["general", "social", "work", "exercise"];
@@ -186,11 +189,6 @@ const typewriterEffect = (text) => {
   }, 40);
 };
 
-// At the top of your component/file
-const API_BASE_URL = import.meta.env.PROD
-  ? "https://too-lazy-as-a-service.onrender.com"
-  : ""; // Empty string for development (uses proxy)
-
 const getExcuse = async () => {
   if (loading.value) return;
 
@@ -205,7 +203,7 @@ const getExcuse = async () => {
     if (customTask.value.trim()) {
       console.log("Sending POST with custom task:", customTask.value);
       response = await axios.post(
-        `${API_BASE_URL}/api/excuse/custom`,
+        `${API_BASE_URL}/excuse/custom`,
         { task: customTask.value.trim() },
         { timeout: 10000 }
       );
@@ -214,18 +212,13 @@ const getExcuse = async () => {
       console.log(
         `Sending GET for category=${category.value} with tag=${tag.value}`
       );
-      response = await axios.get(
-        `${API_BASE_URL}/api/excuse/${category.value}`,
-        {
-          params,
-          timeout: 10000,
-        }
-      );
-    } else {
-      console.log("Sending GET for random excuse");
-      response = await axios.get(`${API_BASE_URL}/api/excuse`, {
+      response = await axios.get(`${API_BASE_URL}/excuse/${category.value}`, {
+        params,
         timeout: 10000,
       });
+    } else {
+      console.log("Sending GET for random excuse");
+      response = await axios.get(`${API_BASE_URL}/excuse`, { timeout: 10000 });
     }
 
     console.log("API response data:", response.data);
