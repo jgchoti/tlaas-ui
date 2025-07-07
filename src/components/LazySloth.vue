@@ -23,7 +23,12 @@
     <!-- Excuse Display Screen -->
     <div class="gameboy-screen">
       <div class="screen-content">
-        <p v-if="excuse" class="excuse-text">{{ displayedExcuse }}</p>
+        <p v-if="excuse && displayedExcuse" class="excuse-text">
+          {{ displayedExcuse }}
+        </p>
+        <p v-else-if="excuse && !displayedExcuse" class="thinking-text">
+          Processing excuse<span class="blinking-cursor">|</span>
+        </p>
         <p v-else class="thinking-text">
           Sloth is thinking<span class="blinking-cursor">|</span>
         </p>
