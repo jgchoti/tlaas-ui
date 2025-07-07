@@ -186,6 +186,10 @@ const typewriterEffect = (text) => {
   }, 40);
 };
 
+const API_BASE_URL =
+  process.env.VUE_APP_API_BASE_URL ||
+  "https://too-lazy-as-a-service.onrender.com";
+
 const getExcuse = async () => {
   if (loading.value) return;
 
@@ -200,7 +204,7 @@ const getExcuse = async () => {
     if (customTask.value.trim()) {
       console.log("Sending POST with custom task:", customTask.value);
       response = await axios.post(
-        `/api/excuse/custom`,
+        `${API_BASE_URL}/api/excuse/custom`,
         { task: customTask.value.trim() },
         { timeout: 10000 }
       );
@@ -209,13 +213,18 @@ const getExcuse = async () => {
       console.log(
         `Sending GET for category=${category.value} with tag=${tag.value}`
       );
-      response = await axios.get(`/api/excuse/${category.value}`, {
-        params,
-        timeout: 10000,
-      });
+      response = await axios.get(
+        `${API_BASE_URL}/api/excuse/${category.value}`,
+        {
+          params,
+          timeout: 10000,
+        }
+      );
     } else {
       console.log("Sending GET for random excuse");
-      response = await axios.get(`/api/excuse`, { timeout: 10000 });
+      response = await axios.get(`${API_BASE_URL}/api/excuse`, {
+        timeout: 10000,
+      });
     }
 
     console.log("API response data:", response.data);
