@@ -229,9 +229,8 @@ const getExcuse = async () => {
     const newCategory = response.data.category || "general";
 
     if (newCategory === "Who Care?") {
-      error.value =
-        "The sloth refused to work. Try again later (or don't)";
-      excuse.value = newExcuse; // Show the API's excuse even for "Who Care?"
+      error.value = "The sloth refused to work. Try again later (or don't)";
+      excuse.value = newExcuse;
       excuseCount.value++;
       setTimeout(() => {
         typewriterEffect(newExcuse);
@@ -260,6 +259,7 @@ const getExcuse = async () => {
   } finally {
     loading.value = false;
   }
+};
 const clearAll = () => {
   category.value = "";
   tag.value = "";
